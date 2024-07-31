@@ -20,6 +20,7 @@ import {
   IsEnum,
 } from "class-validator";
 import { Type } from "class-transformer";
+import { Opportunity } from "../../opportunity/base/Opportunity";
 import { Product } from "../../product/base/Product";
 import { EnumProposalStatus } from "./EnumProposalStatus";
 
@@ -67,12 +68,33 @@ class Proposal {
 
   @ApiProperty({
     required: false,
+    type: () => Opportunity,
+  })
+  @ValidateNested()
+  @Type(() => Opportunity)
+  @IsOptional()
+  opportunity?: Opportunity | null;
+
+  @ApiProperty({
+    required: false,
     type: () => Product,
   })
   @ValidateNested()
   @Type(() => Product)
   @IsOptional()
   product?: Product | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  proposalContent!: string | null;
 
   @ApiProperty({
     required: false,

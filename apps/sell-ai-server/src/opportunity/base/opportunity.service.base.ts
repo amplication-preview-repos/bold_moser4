@@ -10,7 +10,11 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
-import { Prisma, Opportunity as PrismaOpportunity } from "@prisma/client";
+import {
+  Prisma,
+  Opportunity as PrismaOpportunity,
+  Proposal as PrismaProposal,
+} from "@prisma/client";
 
 export class OpportunityServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -45,5 +49,16 @@ export class OpportunityServiceBase {
     args: Prisma.OpportunityDeleteArgs
   ): Promise<PrismaOpportunity> {
     return this.prisma.opportunity.delete(args);
+  }
+
+  async findProposals(
+    parentId: string,
+    args: Prisma.ProposalFindManyArgs
+  ): Promise<PrismaProposal[]> {
+    return this.prisma.opportunity
+      .findUniqueOrThrow({
+        where: { id: parentId },
+      })
+      .proposals(args);
   }
 }

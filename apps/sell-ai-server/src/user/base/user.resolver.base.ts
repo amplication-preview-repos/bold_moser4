@@ -20,6 +20,7 @@ import { UserFindUniqueArgs } from "./UserFindUniqueArgs";
 import { CreateUserArgs } from "./CreateUserArgs";
 import { UpdateUserArgs } from "./UpdateUserArgs";
 import { DeleteUserArgs } from "./DeleteUserArgs";
+import { Subscription } from "../../subscription/base/Subscription";
 import { UserService } from "../user.service";
 @graphql.Resolver(() => User)
 export class UserResolverBase {
@@ -52,7 +53,15 @@ export class UserResolverBase {
   async createUser(@graphql.Args() args: CreateUserArgs): Promise<User> {
     return await this.service.createUser({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        subscription: args.data.subscription
+          ? {
+              connect: args.data.subscription,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -61,7 +70,15 @@ export class UserResolverBase {
     try {
       return await this.service.updateUser({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          subscription: args.data.subscription
+            ? {
+                connect: args.data.subscription,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -85,5 +102,20 @@ export class UserResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => Subscription, {
+    nullable: true,
+    name: "subscription",
+  })
+  async getSubscription(
+    @graphql.Parent() parent: User
+  ): Promise<Subscription | null> {
+    const result = await this.service.getSubscription(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 }

@@ -7,6 +7,7 @@ import {
   TextField,
   ReferenceField,
 } from "react-admin";
+import { OPPORTUNITY_TITLE_FIELD } from "../opportunity/OpportunityTitle";
 import { PRODUCT_TITLE_FIELD } from "../product/ProductTitle";
 
 export const ProposalShow = (props: ShowProps): React.ReactElement => {
@@ -17,9 +18,17 @@ export const ProposalShow = (props: ShowProps): React.ReactElement => {
         <TextField label="customer" source="customer" />
         <TextField label="customerUser" source="customerUser" />
         <TextField label="ID" source="id" />
+        <ReferenceField
+          label="opportunity"
+          source="opportunity.id"
+          reference="Opportunity"
+        >
+          <TextField source={OPPORTUNITY_TITLE_FIELD} />
+        </ReferenceField>
         <ReferenceField label="product" source="product.id" reference="Product">
           <TextField source={PRODUCT_TITLE_FIELD} />
         </ReferenceField>
+        <TextField label="proposalContent" source="proposalContent" />
         <TextField label="status" source="status" />
         <TextField label="supplier" source="supplier" />
         <TextField label="supplierUser" source="supplierUser" />

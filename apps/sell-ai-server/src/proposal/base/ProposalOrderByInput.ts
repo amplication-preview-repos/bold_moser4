@@ -72,7 +72,29 @@ class ProposalOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
+  opportunityId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
   productId?: SortOrder;
+
+  @ApiProperty({
+    required: false,
+    enum: ["asc", "desc"],
+  })
+  @IsOptional()
+  @IsEnum(SortOrder)
+  @Field(() => SortOrder, {
+    nullable: true,
+  })
+  proposalContent?: SortOrder;
 
   @ApiProperty({
     required: false,

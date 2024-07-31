@@ -9,5 +9,25 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-class OpportunityUpdateInput {}
+import { InputType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+import { ProposalUpdateManyWithoutOpportunitiesInput } from "./ProposalUpdateManyWithoutOpportunitiesInput";
+import { ValidateNested, IsOptional } from "class-validator";
+import { Type } from "class-transformer";
+
+@InputType()
+class OpportunityUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: () => ProposalUpdateManyWithoutOpportunitiesInput,
+  })
+  @ValidateNested()
+  @Type(() => ProposalUpdateManyWithoutOpportunitiesInput)
+  @IsOptional()
+  @Field(() => ProposalUpdateManyWithoutOpportunitiesInput, {
+    nullable: true,
+  })
+  proposals?: ProposalUpdateManyWithoutOpportunitiesInput;
+}
+
 export { OpportunityUpdateInput as OpportunityUpdateInput };

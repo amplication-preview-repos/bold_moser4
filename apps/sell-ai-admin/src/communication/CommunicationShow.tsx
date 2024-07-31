@@ -13,6 +13,8 @@ export const CommunicationShow = (props: ShowProps): React.ReactElement => {
       <SimpleShowLayout>
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
+        <TextField label="matchedCustomer" source="matchedCustomer" />
+        <TextField label="scheduleCall" source="scheduleCall" />
         <DateField source="updatedAt" label="Updated At" />
       </SimpleShowLayout>
     </Show>

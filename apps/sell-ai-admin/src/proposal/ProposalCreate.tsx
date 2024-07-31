@@ -7,6 +7,7 @@ import {
   ReferenceInput,
   SelectInput,
 } from "react-admin";
+import { OpportunityTitle } from "../opportunity/OpportunityTitle";
 import { ProductTitle } from "../product/ProductTitle";
 
 export const ProposalCreate = (props: CreateProps): React.ReactElement => {
@@ -15,9 +16,17 @@ export const ProposalCreate = (props: CreateProps): React.ReactElement => {
       <SimpleForm>
         <TextInput label="customer" source="customer" />
         <TextInput label="customerUser" source="customerUser" />
+        <ReferenceInput
+          source="opportunity.id"
+          reference="Opportunity"
+          label="opportunity"
+        >
+          <SelectInput optionText={OpportunityTitle} />
+        </ReferenceInput>
         <ReferenceInput source="product.id" reference="Product" label="product">
           <SelectInput optionText={ProductTitle} />
         </ReferenceInput>
+        <TextInput label="proposalContent" multiline source="proposalContent" />
         <SelectInput
           source="status"
           label="status"

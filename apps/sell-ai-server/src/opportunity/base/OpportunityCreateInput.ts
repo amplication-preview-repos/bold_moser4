@@ -9,5 +9,25 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-class OpportunityCreateInput {}
+import { InputType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+import { ProposalCreateNestedManyWithoutOpportunitiesInput } from "./ProposalCreateNestedManyWithoutOpportunitiesInput";
+import { ValidateNested, IsOptional } from "class-validator";
+import { Type } from "class-transformer";
+
+@InputType()
+class OpportunityCreateInput {
+  @ApiProperty({
+    required: false,
+    type: () => ProposalCreateNestedManyWithoutOpportunitiesInput,
+  })
+  @ValidateNested()
+  @Type(() => ProposalCreateNestedManyWithoutOpportunitiesInput)
+  @IsOptional()
+  @Field(() => ProposalCreateNestedManyWithoutOpportunitiesInput, {
+    nullable: true,
+  })
+  proposals?: ProposalCreateNestedManyWithoutOpportunitiesInput;
+}
+
 export { OpportunityCreateInput as OpportunityCreateInput };

@@ -13,8 +13,9 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import {
   IsString,
-  IsOptional,
   MaxLength,
+  IsOptional,
+  ValidateNested,
   IsEnum,
   IsInt,
   Min,
@@ -23,11 +24,25 @@ import {
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
+import { SubscriptionWhereUniqueInput } from "../../subscription/base/SubscriptionWhereUniqueInput";
+import { Type } from "class-transformer";
 import { EnumUserTags } from "./EnumUserTags";
 import { EnumUserTypeField } from "./EnumUserTypeField";
 
 @InputType()
 class UserUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  customerFeedback?: string | null;
+
   @ApiProperty({
     required: false,
     type: String,
@@ -95,6 +110,30 @@ class UserUpdateInput {
     nullable: true,
   })
   serviceDescription?: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => SubscriptionWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SubscriptionWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SubscriptionWhereUniqueInput, {
+    nullable: true,
+  })
+  subscription?: SubscriptionWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  supplierFeedback?: string | null;
 
   @ApiProperty({
     required: false,

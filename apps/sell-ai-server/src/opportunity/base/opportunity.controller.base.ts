@@ -22,6 +22,9 @@ import { Opportunity } from "./Opportunity";
 import { OpportunityFindManyArgs } from "./OpportunityFindManyArgs";
 import { OpportunityWhereUniqueInput } from "./OpportunityWhereUniqueInput";
 import { OpportunityUpdateInput } from "./OpportunityUpdateInput";
+import { ProposalFindManyArgs } from "../../proposal/base/ProposalFindManyArgs";
+import { Proposal } from "../../proposal/base/Proposal";
+import { ProposalWhereUniqueInput } from "../../proposal/base/ProposalWhereUniqueInput";
 
 export class OpportunityControllerBase {
   constructor(protected readonly service: OpportunityService) {}
@@ -127,5 +130,98 @@ export class OpportunityControllerBase {
       }
       throw error;
     }
+  }
+
+  @common.Get("/:id/proposals")
+  @ApiNestedQuery(ProposalFindManyArgs)
+  async findProposals(
+    @common.Req() request: Request,
+    @common.Param() params: OpportunityWhereUniqueInput
+  ): Promise<Proposal[]> {
+    const query = plainToClass(ProposalFindManyArgs, request.query);
+    const results = await this.service.findProposals(params.id, {
+      ...query,
+      select: {
+        createdAt: true,
+        customer: true,
+        customerUser: true,
+        id: true,
+
+        opportunity: {
+          select: {
+            id: true,
+          },
+        },
+
+        product: {
+          select: {
+            id: true,
+          },
+        },
+
+        proposalContent: true,
+        status: true,
+        supplier: true,
+        supplierUser: true,
+        updatedAt: true,
+      },
+    });
+    if (results === null) {
+      throw new errors.NotFoundException(
+        `No resource was found for ${JSON.stringify(params)}`
+      );
+    }
+    return results;
+  }
+
+  @common.Post("/:id/proposals")
+  async connectProposals(
+    @common.Param() params: OpportunityWhereUniqueInput,
+    @common.Body() body: ProposalWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      proposals: {
+        connect: body,
+      },
+    };
+    await this.service.updateOpportunity({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Patch("/:id/proposals")
+  async updateProposals(
+    @common.Param() params: OpportunityWhereUniqueInput,
+    @common.Body() body: ProposalWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      proposals: {
+        set: body,
+      },
+    };
+    await this.service.updateOpportunity({
+      where: params,
+      data,
+      select: { id: true },
+    });
+  }
+
+  @common.Delete("/:id/proposals")
+  async disconnectProposals(
+    @common.Param() params: OpportunityWhereUniqueInput,
+    @common.Body() body: ProposalWhereUniqueInput[]
+  ): Promise<void> {
+    const data = {
+      proposals: {
+        disconnect: body,
+      },
+    };
+    await this.service.updateOpportunity({
+      where: params,
+      data,
+      select: { id: true },
+    });
   }
 }

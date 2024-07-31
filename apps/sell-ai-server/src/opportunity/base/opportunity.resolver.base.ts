@@ -17,7 +17,11 @@ import { Opportunity } from "./Opportunity";
 import { OpportunityCountArgs } from "./OpportunityCountArgs";
 import { OpportunityFindManyArgs } from "./OpportunityFindManyArgs";
 import { OpportunityFindUniqueArgs } from "./OpportunityFindUniqueArgs";
+import { CreateOpportunityArgs } from "./CreateOpportunityArgs";
+import { UpdateOpportunityArgs } from "./UpdateOpportunityArgs";
 import { DeleteOpportunityArgs } from "./DeleteOpportunityArgs";
+import { ProposalFindManyArgs } from "../../proposal/base/ProposalFindManyArgs";
+import { Proposal } from "../../proposal/base/Proposal";
 import { OpportunityService } from "../opportunity.service";
 @graphql.Resolver(() => Opportunity)
 export class OpportunityResolverBase {
@@ -51,6 +55,35 @@ export class OpportunityResolverBase {
   }
 
   @graphql.Mutation(() => Opportunity)
+  async createOpportunity(
+    @graphql.Args() args: CreateOpportunityArgs
+  ): Promise<Opportunity> {
+    return await this.service.createOpportunity({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @graphql.Mutation(() => Opportunity)
+  async updateOpportunity(
+    @graphql.Args() args: UpdateOpportunityArgs
+  ): Promise<Opportunity | null> {
+    try {
+      return await this.service.updateOpportunity({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
+  }
+
+  @graphql.Mutation(() => Opportunity)
   async deleteOpportunity(
     @graphql.Args() args: DeleteOpportunityArgs
   ): Promise<Opportunity | null> {
@@ -64,5 +97,19 @@ export class OpportunityResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => [Proposal], { name: "proposals" })
+  async findProposals(
+    @graphql.Parent() parent: Opportunity,
+    @graphql.Args() args: ProposalFindManyArgs
+  ): Promise<Proposal[]> {
+    const results = await this.service.findProposals(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 }

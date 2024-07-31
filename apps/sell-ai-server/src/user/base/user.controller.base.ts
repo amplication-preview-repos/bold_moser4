@@ -29,15 +29,32 @@ export class UserControllerBase {
   @swagger.ApiCreatedResponse({ type: User })
   async createUser(@common.Body() data: UserCreateInput): Promise<User> {
     return await this.service.createUser({
-      data: data,
+      data: {
+        ...data,
+
+        subscription: data.subscription
+          ? {
+              connect: data.subscription,
+            }
+          : undefined,
+      },
       select: {
         createdAt: true,
+        customerFeedback: true,
         email: true,
         firstName: true,
         id: true,
         lastName: true,
         roles: true,
         serviceDescription: true,
+
+        subscription: {
+          select: {
+            id: true,
+          },
+        },
+
+        supplierFeedback: true,
         tags: true,
         typeField: true,
         updatedAt: true,
@@ -56,12 +73,21 @@ export class UserControllerBase {
       ...args,
       select: {
         createdAt: true,
+        customerFeedback: true,
         email: true,
         firstName: true,
         id: true,
         lastName: true,
         roles: true,
         serviceDescription: true,
+
+        subscription: {
+          select: {
+            id: true,
+          },
+        },
+
+        supplierFeedback: true,
         tags: true,
         typeField: true,
         updatedAt: true,
@@ -81,12 +107,21 @@ export class UserControllerBase {
       where: params,
       select: {
         createdAt: true,
+        customerFeedback: true,
         email: true,
         firstName: true,
         id: true,
         lastName: true,
         roles: true,
         serviceDescription: true,
+
+        subscription: {
+          select: {
+            id: true,
+          },
+        },
+
+        supplierFeedback: true,
         tags: true,
         typeField: true,
         updatedAt: true,
@@ -112,15 +147,32 @@ export class UserControllerBase {
     try {
       return await this.service.updateUser({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          subscription: data.subscription
+            ? {
+                connect: data.subscription,
+              }
+            : undefined,
+        },
         select: {
           createdAt: true,
+          customerFeedback: true,
           email: true,
           firstName: true,
           id: true,
           lastName: true,
           roles: true,
           serviceDescription: true,
+
+          subscription: {
+            select: {
+              id: true,
+            },
+          },
+
+          supplierFeedback: true,
           tags: true,
           typeField: true,
           updatedAt: true,
@@ -149,12 +201,21 @@ export class UserControllerBase {
         where: params,
         select: {
           createdAt: true,
+          customerFeedback: true,
           email: true,
           firstName: true,
           id: true,
           lastName: true,
           roles: true,
           serviceDescription: true,
+
+          subscription: {
+            select: {
+              id: true,
+            },
+          },
+
+          supplierFeedback: true,
           tags: true,
           typeField: true,
           updatedAt: true,

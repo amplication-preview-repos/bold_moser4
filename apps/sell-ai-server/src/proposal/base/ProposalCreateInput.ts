@@ -18,8 +18,9 @@ import {
   ValidateNested,
   IsEnum,
 } from "class-validator";
-import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
+import { OpportunityWhereUniqueInput } from "../../opportunity/base/OpportunityWhereUniqueInput";
 import { Type } from "class-transformer";
+import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
 import { EnumProposalStatus } from "./EnumProposalStatus";
 
 @InputType()
@@ -50,6 +51,18 @@ class ProposalCreateInput {
 
   @ApiProperty({
     required: false,
+    type: () => OpportunityWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => OpportunityWhereUniqueInput)
+  @IsOptional()
+  @Field(() => OpportunityWhereUniqueInput, {
+    nullable: true,
+  })
+  opportunity?: OpportunityWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
     type: () => ProductWhereUniqueInput,
   })
   @ValidateNested()
@@ -59,6 +72,18 @@ class ProposalCreateInput {
     nullable: true,
   })
   product?: ProductWhereUniqueInput | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  proposalContent?: string | null;
 
   @ApiProperty({
     required: false,

@@ -208,12 +208,19 @@ export class ProductControllerBase {
         customerUser: true,
         id: true,
 
+        opportunity: {
+          select: {
+            id: true,
+          },
+        },
+
         product: {
           select: {
             id: true,
           },
         },
 
+        proposalContent: true,
         status: true,
         supplier: true,
         supplierUser: true,

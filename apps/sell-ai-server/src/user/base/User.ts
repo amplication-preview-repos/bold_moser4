@@ -11,20 +11,24 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
+
 import {
   IsDate,
   IsString,
-  IsOptional,
   MaxLength,
+  IsOptional,
+  ValidateNested,
   IsEnum,
   IsInt,
   Min,
   Max,
 } from "class-validator";
+
 import { Type } from "class-transformer";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { JsonValue } from "type-fest";
+import { Subscription } from "../../subscription/base/Subscription";
 import { EnumUserTags } from "./EnumUserTags";
 import { EnumUserTypeField } from "./EnumUserTypeField";
 
@@ -37,6 +41,18 @@ class User {
   @Type(() => Date)
   @Field(() => Date)
   createdAt!: Date;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  customerFeedback!: string | null;
 
   @ApiProperty({
     required: false,
@@ -99,6 +115,27 @@ class User {
     nullable: true,
   })
   serviceDescription!: string | null;
+
+  @ApiProperty({
+    required: false,
+    type: () => Subscription,
+  })
+  @ValidateNested()
+  @Type(() => Subscription)
+  @IsOptional()
+  subscription?: Subscription | null;
+
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  supplierFeedback!: string | null;
 
   @ApiProperty({
     required: false,

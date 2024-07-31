@@ -20,23 +20,31 @@ const existingId = "existingId";
 const CREATE_INPUT = {
   createdAt: new Date(),
   id: "exampleId",
+  matchedCustomer: "exampleMatchedCustomer",
+  scheduleCall: new Date(),
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
   createdAt: new Date(),
   id: "exampleId",
+  matchedCustomer: "exampleMatchedCustomer",
+  scheduleCall: new Date(),
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
   {
     createdAt: new Date(),
     id: "exampleId",
+    matchedCustomer: "exampleMatchedCustomer",
+    scheduleCall: new Date(),
     updatedAt: new Date(),
   },
 ];
 const FIND_ONE_RESULT = {
   createdAt: new Date(),
   id: "exampleId",
+  matchedCustomer: "exampleMatchedCustomer",
+  scheduleCall: new Date(),
   updatedAt: new Date(),
 };
 
@@ -123,6 +131,7 @@ describe("Communication", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        scheduleCall: CREATE_RESULT.scheduleCall.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -135,6 +144,7 @@ describe("Communication", () => {
         {
           ...FIND_MANY_RESULT[0],
           createdAt: FIND_MANY_RESULT[0].createdAt.toISOString(),
+          scheduleCall: FIND_MANY_RESULT[0].scheduleCall.toISOString(),
           updatedAt: FIND_MANY_RESULT[0].updatedAt.toISOString(),
         },
       ]);
@@ -158,6 +168,7 @@ describe("Communication", () => {
       .expect({
         ...FIND_ONE_RESULT,
         createdAt: FIND_ONE_RESULT.createdAt.toISOString(),
+        scheduleCall: FIND_ONE_RESULT.scheduleCall.toISOString(),
         updatedAt: FIND_ONE_RESULT.updatedAt.toISOString(),
       });
   });
@@ -171,6 +182,7 @@ describe("Communication", () => {
       .expect({
         ...CREATE_RESULT,
         createdAt: CREATE_RESULT.createdAt.toISOString(),
+        scheduleCall: CREATE_RESULT.scheduleCall.toISOString(),
         updatedAt: CREATE_RESULT.updatedAt.toISOString(),
       })
       .then(function () {

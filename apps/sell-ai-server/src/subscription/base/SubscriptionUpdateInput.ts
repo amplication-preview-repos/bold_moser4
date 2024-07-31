@@ -9,5 +9,25 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-class SubscriptionUpdateInput {}
+import { InputType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+import { UserUpdateManyWithoutSubscriptionsInput } from "./UserUpdateManyWithoutSubscriptionsInput";
+import { ValidateNested, IsOptional } from "class-validator";
+import { Type } from "class-transformer";
+
+@InputType()
+class SubscriptionUpdateInput {
+  @ApiProperty({
+    required: false,
+    type: () => UserUpdateManyWithoutSubscriptionsInput,
+  })
+  @ValidateNested()
+  @Type(() => UserUpdateManyWithoutSubscriptionsInput)
+  @IsOptional()
+  @Field(() => UserUpdateManyWithoutSubscriptionsInput, {
+    nullable: true,
+  })
+  users?: UserUpdateManyWithoutSubscriptionsInput;
+}
+
 export { SubscriptionUpdateInput as SubscriptionUpdateInput };

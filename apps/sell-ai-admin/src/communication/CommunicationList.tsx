@@ -14,6 +14,8 @@ export const CommunicationList = (props: ListProps): React.ReactElement => {
       <Datagrid rowClick="show">
         <DateField source="createdAt" label="Created At" />
         <TextField label="ID" source="id" />
+        <TextField label="matchedCustomer" source="matchedCustomer" />
+        <TextField label="scheduleCall" source="scheduleCall" />
         <DateField source="updatedAt" label="Updated At" />
       </Datagrid>
     </List>

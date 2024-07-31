@@ -35,6 +35,8 @@ export class CommunicationControllerBase {
       select: {
         createdAt: true,
         id: true,
+        matchedCustomer: true,
+        scheduleCall: true,
         updatedAt: true,
       },
     });
@@ -52,6 +54,8 @@ export class CommunicationControllerBase {
       select: {
         createdAt: true,
         id: true,
+        matchedCustomer: true,
+        scheduleCall: true,
         updatedAt: true,
       },
     });
@@ -68,6 +72,8 @@ export class CommunicationControllerBase {
       select: {
         createdAt: true,
         id: true,
+        matchedCustomer: true,
+        scheduleCall: true,
         updatedAt: true,
       },
     });
@@ -93,6 +99,8 @@ export class CommunicationControllerBase {
         select: {
           createdAt: true,
           id: true,
+          matchedCustomer: true,
+          scheduleCall: true,
           updatedAt: true,
         },
       });
@@ -118,6 +126,8 @@ export class CommunicationControllerBase {
         select: {
           createdAt: true,
           id: true,
+          matchedCustomer: true,
+          scheduleCall: true,
           updatedAt: true,
         },
       });

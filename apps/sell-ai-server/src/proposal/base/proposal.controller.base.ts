@@ -34,6 +34,12 @@ export class ProposalControllerBase {
       data: {
         ...data,
 
+        opportunity: data.opportunity
+          ? {
+              connect: data.opportunity,
+            }
+          : undefined,
+
         product: data.product
           ? {
               connect: data.product,
@@ -46,12 +52,19 @@ export class ProposalControllerBase {
         customerUser: true,
         id: true,
 
+        opportunity: {
+          select: {
+            id: true,
+          },
+        },
+
         product: {
           select: {
             id: true,
           },
         },
 
+        proposalContent: true,
         status: true,
         supplier: true,
         supplierUser: true,
@@ -73,12 +86,19 @@ export class ProposalControllerBase {
         customerUser: true,
         id: true,
 
+        opportunity: {
+          select: {
+            id: true,
+          },
+        },
+
         product: {
           select: {
             id: true,
           },
         },
 
+        proposalContent: true,
         status: true,
         supplier: true,
         supplierUser: true,
@@ -101,12 +121,19 @@ export class ProposalControllerBase {
         customerUser: true,
         id: true,
 
+        opportunity: {
+          select: {
+            id: true,
+          },
+        },
+
         product: {
           select: {
             id: true,
           },
         },
 
+        proposalContent: true,
         status: true,
         supplier: true,
         supplierUser: true,
@@ -134,6 +161,12 @@ export class ProposalControllerBase {
         data: {
           ...data,
 
+          opportunity: data.opportunity
+            ? {
+                connect: data.opportunity,
+              }
+            : undefined,
+
           product: data.product
             ? {
                 connect: data.product,
@@ -146,12 +179,19 @@ export class ProposalControllerBase {
           customerUser: true,
           id: true,
 
+          opportunity: {
+            select: {
+              id: true,
+            },
+          },
+
           product: {
             select: {
               id: true,
             },
           },
 
+          proposalContent: true,
           status: true,
           supplier: true,
           supplierUser: true,
@@ -183,12 +223,19 @@ export class ProposalControllerBase {
           customerUser: true,
           id: true,
 
+          opportunity: {
+            select: {
+              id: true,
+            },
+          },
+
           product: {
             select: {
               id: true,
             },
           },
 
+          proposalContent: true,
           status: true,
           supplier: true,
           supplierUser: true,

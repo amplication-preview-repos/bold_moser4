@@ -13,7 +13,8 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { IsOptional, ValidateNested } from "class-validator";
+import { ProposalListRelationFilter } from "../../proposal/base/ProposalListRelationFilter";
 
 @InputType()
 class OpportunityWhereInput {
@@ -27,6 +28,18 @@ class OpportunityWhereInput {
     nullable: true,
   })
   id?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => ProposalListRelationFilter,
+  })
+  @ValidateNested()
+  @Type(() => ProposalListRelationFilter)
+  @IsOptional()
+  @Field(() => ProposalListRelationFilter, {
+    nullable: true,
+  })
+  proposals?: ProposalListRelationFilter;
 }
 
 export { OpportunityWhereInput as OpportunityWhereInput };

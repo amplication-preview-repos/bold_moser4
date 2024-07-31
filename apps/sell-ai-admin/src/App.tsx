@@ -5,18 +5,14 @@ import { theme } from "./theme/theme";
 import Login from "./Login";
 import "./App.scss";
 import Dashboard from "./pages/Dashboard";
-import { OpportunityList } from "./opportunity/OpportunityList";
-import { OpportunityCreate } from "./opportunity/OpportunityCreate";
-import { OpportunityEdit } from "./opportunity/OpportunityEdit";
-import { OpportunityShow } from "./opportunity/OpportunityShow";
 import { CommunicationList } from "./communication/CommunicationList";
 import { CommunicationCreate } from "./communication/CommunicationCreate";
 import { CommunicationEdit } from "./communication/CommunicationEdit";
 import { CommunicationShow } from "./communication/CommunicationShow";
-import { ProfileList } from "./profile/ProfileList";
-import { ProfileCreate } from "./profile/ProfileCreate";
-import { ProfileEdit } from "./profile/ProfileEdit";
-import { ProfileShow } from "./profile/ProfileShow";
+import { OpportunityList } from "./opportunity/OpportunityList";
+import { OpportunityCreate } from "./opportunity/OpportunityCreate";
+import { OpportunityEdit } from "./opportunity/OpportunityEdit";
+import { OpportunityShow } from "./opportunity/OpportunityShow";
 import { SubscriptionList } from "./subscription/SubscriptionList";
 import { SubscriptionCreate } from "./subscription/SubscriptionCreate";
 import { SubscriptionEdit } from "./subscription/SubscriptionEdit";
@@ -25,6 +21,10 @@ import { FeedbackList } from "./feedback/FeedbackList";
 import { FeedbackCreate } from "./feedback/FeedbackCreate";
 import { FeedbackEdit } from "./feedback/FeedbackEdit";
 import { FeedbackShow } from "./feedback/FeedbackShow";
+import { ProfileList } from "./profile/ProfileList";
+import { ProfileCreate } from "./profile/ProfileCreate";
+import { ProfileEdit } from "./profile/ProfileEdit";
+import { ProfileShow } from "./profile/ProfileShow";
 import { UserList } from "./user/UserList";
 import { UserCreate } from "./user/UserCreate";
 import { UserEdit } from "./user/UserEdit";
@@ -76,13 +76,6 @@ const App = (): React.ReactElement => {
         loginPage={Login}
       >
         <Resource
-          name="Opportunity"
-          list={OpportunityList}
-          edit={OpportunityEdit}
-          create={OpportunityCreate}
-          show={OpportunityShow}
-        />
-        <Resource
           name="Communication"
           list={CommunicationList}
           edit={CommunicationEdit}
@@ -90,11 +83,11 @@ const App = (): React.ReactElement => {
           show={CommunicationShow}
         />
         <Resource
-          name="Profile"
-          list={ProfileList}
-          edit={ProfileEdit}
-          create={ProfileCreate}
-          show={ProfileShow}
+          name="Opportunity"
+          list={OpportunityList}
+          edit={OpportunityEdit}
+          create={OpportunityCreate}
+          show={OpportunityShow}
         />
         <Resource
           name="Subscription"
@@ -109,6 +102,13 @@ const App = (): React.ReactElement => {
           edit={FeedbackEdit}
           create={FeedbackCreate}
           show={FeedbackShow}
+        />
+        <Resource
+          name="Profile"
+          list={ProfileList}
+          edit={ProfileEdit}
+          create={ProfileCreate}
+          show={ProfileShow}
         />
         <Resource
           name="User"

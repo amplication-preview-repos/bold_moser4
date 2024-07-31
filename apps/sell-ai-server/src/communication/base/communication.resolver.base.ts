@@ -17,6 +17,8 @@ import { Communication } from "./Communication";
 import { CommunicationCountArgs } from "./CommunicationCountArgs";
 import { CommunicationFindManyArgs } from "./CommunicationFindManyArgs";
 import { CommunicationFindUniqueArgs } from "./CommunicationFindUniqueArgs";
+import { CreateCommunicationArgs } from "./CreateCommunicationArgs";
+import { UpdateCommunicationArgs } from "./UpdateCommunicationArgs";
 import { DeleteCommunicationArgs } from "./DeleteCommunicationArgs";
 import { CommunicationService } from "../communication.service";
 @graphql.Resolver(() => Communication)
@@ -48,6 +50,35 @@ export class CommunicationResolverBase {
       return null;
     }
     return result;
+  }
+
+  @graphql.Mutation(() => Communication)
+  async createCommunication(
+    @graphql.Args() args: CreateCommunicationArgs
+  ): Promise<Communication> {
+    return await this.service.createCommunication({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @graphql.Mutation(() => Communication)
+  async updateCommunication(
+    @graphql.Args() args: UpdateCommunicationArgs
+  ): Promise<Communication | null> {
+    try {
+      return await this.service.updateCommunication({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
   }
 
   @graphql.Mutation(() => Communication)

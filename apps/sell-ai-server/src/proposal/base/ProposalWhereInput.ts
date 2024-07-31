@@ -15,6 +15,7 @@ import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
 import { IsOptional, ValidateNested, IsEnum } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
+import { OpportunityWhereUniqueInput } from "../../opportunity/base/OpportunityWhereUniqueInput";
 import { ProductWhereUniqueInput } from "../../product/base/ProductWhereUniqueInput";
 import { EnumProposalStatus } from "./EnumProposalStatus";
 
@@ -55,6 +56,18 @@ class ProposalWhereInput {
 
   @ApiProperty({
     required: false,
+    type: () => OpportunityWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => OpportunityWhereUniqueInput)
+  @IsOptional()
+  @Field(() => OpportunityWhereUniqueInput, {
+    nullable: true,
+  })
+  opportunity?: OpportunityWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
     type: () => ProductWhereUniqueInput,
   })
   @ValidateNested()
@@ -64,6 +77,17 @@ class ProposalWhereInput {
     nullable: true,
   })
   product?: ProductWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  proposalContent?: StringNullableFilter;
 
   @ApiProperty({
     required: false,

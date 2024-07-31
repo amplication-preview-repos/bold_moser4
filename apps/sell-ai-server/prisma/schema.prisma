@@ -7,13 +7,29 @@ generator client {
   provider = "prisma-client-js"
 }
 
+model Communication {
+  createdAt       DateTime  @default(now())
+  id              String    @id @default(cuid())
+  matchedCustomer String?
+  scheduleCall    DateTime?
+  updatedAt       DateTime  @updatedAt
+}
+
 model Opportunity {
+  createdAt DateTime   @default(now())
+  id        String     @id @default(cuid())
+  proposals Proposal[]
+  updatedAt DateTime   @updatedAt
+}
+
+model Subscription {
   createdAt DateTime @default(now())
   id        String   @id @default(cuid())
   updatedAt DateTime @updatedAt
+  users     User[]
 }
 
-model Communication {
+model Feedback {
   createdAt DateTime @default(now())
   id        String   @id @default(cuid())
   updatedAt DateTime @updatedAt
@@ -25,20 +41,9 @@ model Profile {
   updatedAt DateTime @updatedAt
 }
 
-model Subscription {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  updatedAt DateTime @updatedAt
-}
-
-model Feedback {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  updatedAt DateTime @updatedAt
-}
-
 model User {
   createdAt          DateTime           @default(now())
+  customerFeedback   String?
   email              String?            @unique
   firstName          String?
   id                 String             @id @default(cuid())
@@ -46,6 +51,9 @@ model User {
   password           String
   roles              Json
   serviceDescription String?
+  subscription       Subscription?      @relation(fields: [subscriptionId], references: [id])
+  subscriptionId     String?
+  supplierFeedback   String?
   tags               EnumUserTags[]
   typeField          EnumUserTypeField?
   updatedAt          DateTime           @updatedAt
@@ -72,16 +80,19 @@ model SubCategory {
 }
 
 model Proposal {
-  createdAt    DateTime            @default(now())
-  customer     String?
-  customerUser String?
-  id           String              @id @default(cuid())
-  product      Product?            @relation(fields: [productId], references: [id])
-  productId    String?
-  status       EnumProposalStatus?
-  supplier     String?
-  supplierUser String?
-  updatedAt    DateTime            @updatedAt
+  createdAt       DateTime            @default(now())
+  customer        String?
+  customerUser    String?
+  id              String              @id @default(cuid())
+  opportunity     Opportunity?        @relation(fields: [opportunityId], references: [id])
+  opportunityId   String?
+  product         Product?            @relation(fields: [productId], references: [id])
+  productId       String?
+  proposalContent String?
+  status          EnumProposalStatus?
+  supplier        String?
+  supplierUser    String?
+  updatedAt       DateTime            @updatedAt
 }
 
 model Match {

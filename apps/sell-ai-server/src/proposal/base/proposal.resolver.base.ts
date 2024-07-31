@@ -20,6 +20,7 @@ import { ProposalFindUniqueArgs } from "./ProposalFindUniqueArgs";
 import { CreateProposalArgs } from "./CreateProposalArgs";
 import { UpdateProposalArgs } from "./UpdateProposalArgs";
 import { DeleteProposalArgs } from "./DeleteProposalArgs";
+import { Opportunity } from "../../opportunity/base/Opportunity";
 import { Product } from "../../product/base/Product";
 import { ProposalService } from "../proposal.service";
 @graphql.Resolver(() => Proposal)
@@ -62,6 +63,12 @@ export class ProposalResolverBase {
       data: {
         ...args.data,
 
+        opportunity: args.data.opportunity
+          ? {
+              connect: args.data.opportunity,
+            }
+          : undefined,
+
         product: args.data.product
           ? {
               connect: args.data.product,
@@ -80,6 +87,12 @@ export class ProposalResolverBase {
         ...args,
         data: {
           ...args.data,
+
+          opportunity: args.data.opportunity
+            ? {
+                connect: args.data.opportunity,
+              }
+            : undefined,
 
           product: args.data.product
             ? {
@@ -112,6 +125,21 @@ export class ProposalResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => Opportunity, {
+    nullable: true,
+    name: "opportunity",
+  })
+  async getOpportunity(
+    @graphql.Parent() parent: Proposal
+  ): Promise<Opportunity | null> {
+    const result = await this.service.getOpportunity(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return result;
   }
 
   @graphql.ResolveField(() => Product, {

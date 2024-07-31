@@ -17,7 +17,11 @@ import { Subscription } from "./Subscription";
 import { SubscriptionCountArgs } from "./SubscriptionCountArgs";
 import { SubscriptionFindManyArgs } from "./SubscriptionFindManyArgs";
 import { SubscriptionFindUniqueArgs } from "./SubscriptionFindUniqueArgs";
+import { CreateSubscriptionArgs } from "./CreateSubscriptionArgs";
+import { UpdateSubscriptionArgs } from "./UpdateSubscriptionArgs";
 import { DeleteSubscriptionArgs } from "./DeleteSubscriptionArgs";
+import { UserFindManyArgs } from "../../user/base/UserFindManyArgs";
+import { User } from "../../user/base/User";
 import { SubscriptionService } from "../subscription.service";
 @graphql.Resolver(() => Subscription)
 export class SubscriptionResolverBase {
@@ -51,6 +55,35 @@ export class SubscriptionResolverBase {
   }
 
   @graphql.Mutation(() => Subscription)
+  async createSubscription(
+    @graphql.Args() args: CreateSubscriptionArgs
+  ): Promise<Subscription> {
+    return await this.service.createSubscription({
+      ...args,
+      data: args.data,
+    });
+  }
+
+  @graphql.Mutation(() => Subscription)
+  async updateSubscription(
+    @graphql.Args() args: UpdateSubscriptionArgs
+  ): Promise<Subscription | null> {
+    try {
+      return await this.service.updateSubscription({
+        ...args,
+        data: args.data,
+      });
+    } catch (error) {
+      if (isRecordNotFoundError(error)) {
+        throw new GraphQLError(
+          `No resource was found for ${JSON.stringify(args.where)}`
+        );
+      }
+      throw error;
+    }
+  }
+
+  @graphql.Mutation(() => Subscription)
   async deleteSubscription(
     @graphql.Args() args: DeleteSubscriptionArgs
   ): Promise<Subscription | null> {
@@ -64,5 +97,19 @@ export class SubscriptionResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => [User], { name: "users" })
+  async findUsers(
+    @graphql.Parent() parent: Subscription,
+    @graphql.Args() args: UserFindManyArgs
+  ): Promise<User[]> {
+    const results = await this.service.findUsers(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results;
   }
 }

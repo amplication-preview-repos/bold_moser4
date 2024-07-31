@@ -1,1 +1,5 @@
-export type OpportunityCreateInput = {};
+import { ProposalCreateNestedManyWithoutOpportunitiesInput } from "./ProposalCreateNestedManyWithoutOpportunitiesInput";
+
+export type OpportunityCreateInput = {
+  proposals?: ProposalCreateNestedManyWithoutOpportunitiesInput;
+};

@@ -10,9 +10,11 @@ https://docs.amplication.com/how-to/custom-code
 ------------------------------------------------------------------------------
   */
 import { PrismaService } from "../../prisma/prisma.service";
+
 import {
   Prisma,
   Proposal as PrismaProposal,
+  Opportunity as PrismaOpportunity,
   Product as PrismaProduct,
 } from "@prisma/client";
 
@@ -47,6 +49,14 @@ export class ProposalServiceBase {
     args: Prisma.ProposalDeleteArgs
   ): Promise<PrismaProposal> {
     return this.prisma.proposal.delete(args);
+  }
+
+  async getOpportunity(parentId: string): Promise<PrismaOpportunity | null> {
+    return this.prisma.proposal
+      .findUnique({
+        where: { id: parentId },
+      })
+      .opportunity();
   }
 
   async getProduct(parentId: string): Promise<PrismaProduct | null> {

@@ -1,11 +1,18 @@
 import * as React from "react";
-import { Edit, SimpleForm, EditProps } from "react-admin";
+import {
+  Edit,
+  SimpleForm,
+  EditProps,
+  TextInput,
+  DateTimeInput,
+} from "react-admin";
 
 export const CommunicationEdit = (props: EditProps): React.ReactElement => {
   return (
     <Edit {...props}>
       <SimpleForm>
-        <div />
+        <TextInput label="matchedCustomer" source="matchedCustomer" />
+        <DateTimeInput label="scheduleCall" source="scheduleCall" />
       </SimpleForm>
     </Edit>
   );

@@ -7,16 +7,23 @@ import {
   TextInput,
   PasswordInput,
   SelectArrayInput,
+  ReferenceInput,
   SelectInput,
   NumberInput,
 } from "react-admin";
 
+import { SubscriptionTitle } from "../subscription/SubscriptionTitle";
 import { ROLES_OPTIONS } from "../user/RolesOptions";
 
 export const UserCreate = (props: CreateProps): React.ReactElement => {
   return (
     <Create {...props}>
       <SimpleForm>
+        <TextInput
+          label="customerFeedback"
+          multiline
+          source="customerFeedback"
+        />
         <TextInput label="Email" source="email" type="email" />
         <TextInput label="First Name" source="firstName" />
         <TextInput label="Last Name" source="lastName" />
@@ -31,6 +38,18 @@ export const UserCreate = (props: CreateProps): React.ReactElement => {
           label="serviceDescription"
           multiline
           source="serviceDescription"
+        />
+        <ReferenceInput
+          source="subscription.id"
+          reference="Subscription"
+          label="subscription"
+        >
+          <SelectInput optionText={SubscriptionTitle} />
+        </ReferenceInput>
+        <TextInput
+          label="supplierFeedback"
+          multiline
+          source="supplierFeedback"
         />
         <SelectArrayInput
           label="tags"

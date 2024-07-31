@@ -19,24 +19,28 @@ const nonExistingId = "nonExistingId";
 const existingId = "existingId";
 const CREATE_INPUT = {
   createdAt: new Date(),
+  customerFeedback: "exampleCustomerFeedback",
   email: "exampleEmail",
   firstName: "exampleFirstName",
   id: "exampleId",
   lastName: "exampleLastName",
   password: "examplePassword",
   serviceDescription: "exampleServiceDescription",
+  supplierFeedback: "exampleSupplierFeedback",
   updatedAt: new Date(),
   username: "exampleUsername",
   willingToPay: 42,
 };
 const CREATE_RESULT = {
   createdAt: new Date(),
+  customerFeedback: "exampleCustomerFeedback",
   email: "exampleEmail",
   firstName: "exampleFirstName",
   id: "exampleId",
   lastName: "exampleLastName",
   password: "examplePassword",
   serviceDescription: "exampleServiceDescription",
+  supplierFeedback: "exampleSupplierFeedback",
   updatedAt: new Date(),
   username: "exampleUsername",
   willingToPay: 42,
@@ -44,12 +48,14 @@ const CREATE_RESULT = {
 const FIND_MANY_RESULT = [
   {
     createdAt: new Date(),
+    customerFeedback: "exampleCustomerFeedback",
     email: "exampleEmail",
     firstName: "exampleFirstName",
     id: "exampleId",
     lastName: "exampleLastName",
     password: "examplePassword",
     serviceDescription: "exampleServiceDescription",
+    supplierFeedback: "exampleSupplierFeedback",
     updatedAt: new Date(),
     username: "exampleUsername",
     willingToPay: 42,
@@ -57,12 +63,14 @@ const FIND_MANY_RESULT = [
 ];
 const FIND_ONE_RESULT = {
   createdAt: new Date(),
+  customerFeedback: "exampleCustomerFeedback",
   email: "exampleEmail",
   firstName: "exampleFirstName",
   id: "exampleId",
   lastName: "exampleLastName",
   password: "examplePassword",
   serviceDescription: "exampleServiceDescription",
+  supplierFeedback: "exampleSupplierFeedback",
   updatedAt: new Date(),
   username: "exampleUsername",
   willingToPay: 42,

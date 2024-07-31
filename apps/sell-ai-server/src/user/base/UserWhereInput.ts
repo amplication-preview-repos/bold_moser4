@@ -13,13 +13,25 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringNullableFilter } from "../../util/StringNullableFilter";
 import { Type } from "class-transformer";
-import { IsOptional, IsEnum } from "class-validator";
+import { IsOptional, ValidateNested, IsEnum } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
+import { SubscriptionWhereUniqueInput } from "../../subscription/base/SubscriptionWhereUniqueInput";
 import { EnumUserTypeField } from "./EnumUserTypeField";
 import { IntNullableFilter } from "../../util/IntNullableFilter";
 
 @InputType()
 class UserWhereInput {
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  customerFeedback?: StringNullableFilter;
+
   @ApiProperty({
     required: false,
     type: StringNullableFilter,
@@ -74,6 +86,29 @@ class UserWhereInput {
     nullable: true,
   })
   serviceDescription?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
+    type: () => SubscriptionWhereUniqueInput,
+  })
+  @ValidateNested()
+  @Type(() => SubscriptionWhereUniqueInput)
+  @IsOptional()
+  @Field(() => SubscriptionWhereUniqueInput, {
+    nullable: true,
+  })
+  subscription?: SubscriptionWhereUniqueInput;
+
+  @ApiProperty({
+    required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  supplierFeedback?: StringNullableFilter;
 
   @ApiProperty({
     required: false,

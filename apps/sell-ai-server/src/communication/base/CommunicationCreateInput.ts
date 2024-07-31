@@ -9,5 +9,35 @@ https://docs.amplication.com/how-to/custom-code
 
 ------------------------------------------------------------------------------
   */
-class CommunicationCreateInput {}
+import { InputType, Field } from "@nestjs/graphql";
+import { ApiProperty } from "@nestjs/swagger";
+import { IsString, MaxLength, IsOptional, IsDate } from "class-validator";
+import { Type } from "class-transformer";
+
+@InputType()
+class CommunicationCreateInput {
+  @ApiProperty({
+    required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  matchedCustomer?: string | null;
+
+  @ApiProperty({
+    required: false,
+  })
+  @IsDate()
+  @Type(() => Date)
+  @IsOptional()
+  @Field(() => Date, {
+    nullable: true,
+  })
+  scheduleCall?: Date | null;
+}
+
 export { CommunicationCreateInput as CommunicationCreateInput };
