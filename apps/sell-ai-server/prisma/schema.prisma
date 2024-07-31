@@ -1,0 +1,122 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Opportunity {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Communication {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Profile {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Subscription {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model Feedback {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  createdAt DateTime           @default(now())
+  email     String?            @unique
+  firstName String?
+  id        String             @id @default(cuid())
+  lastName  String?
+  password  String
+  roles     Json
+  tags      EnumUserTags[]
+  typeField EnumUserTypeField?
+  updatedAt DateTime           @updatedAt
+  username  String             @unique
+}
+
+model Category {
+  createdAt     DateTime      @default(now())
+  id            String        @id @default(cuid())
+  name          String?
+  products      Product[]
+  subCategories SubCategory[]
+  updatedAt     DateTime      @updatedAt
+}
+
+model SubCategory {
+  category   Category? @relation(fields: [categoryId], references: [id])
+  categoryId String?
+  createdAt  DateTime  @default(now())
+  id         String    @id @default(cuid())
+  name       String?
+  updatedAt  DateTime  @updatedAt
+}
+
+model Proposal {
+  createdAt    DateTime            @default(now())
+  customer     String?
+  customerUser String?
+  id           String              @id @default(cuid())
+  product      Product?            @relation(fields: [productId], references: [id])
+  productId    String?
+  status       EnumProposalStatus?
+  supplier     String?
+  supplierUser String?
+  updatedAt    DateTime            @updatedAt
+}
+
+model Match {
+  createdAt    DateTime         @default(now())
+  customer     String?
+  customerUser String?
+  id           String           @id @default(cuid())
+  status       EnumMatchStatus?
+  supplier     String?
+  supplierUser String?
+  updatedAt    DateTime         @updatedAt
+}
+
+model Product {
+  category    Category?  @relation(fields: [categoryId], references: [id])
+  categoryId  String?
+  createdAt   DateTime   @default(now())
+  description String?
+  id          String     @id @default(cuid())
+  name        String?
+  proposals   Proposal[]
+  supplier    String?
+  updatedAt   DateTime   @updatedAt
+}
+
+enum EnumUserTags {
+  Option1
+}
+
+enum EnumUserTypeField {
+  Option1
+}
+
+enum EnumProposalStatus {
+  Option1
+}
+
+enum EnumMatchStatus {
+  Option1
+}
