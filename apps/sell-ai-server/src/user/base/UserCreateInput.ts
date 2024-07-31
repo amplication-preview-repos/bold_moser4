@@ -11,7 +11,15 @@ https://docs.amplication.com/how-to/custom-code
   */
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsOptional, MaxLength, IsEnum } from "class-validator";
+import {
+  IsString,
+  IsOptional,
+  MaxLength,
+  IsEnum,
+  IsInt,
+  Min,
+  Max,
+} from "class-validator";
 import { IsJSONValue } from "../../validators";
 import { GraphQLJSON } from "graphql-type-json";
 import { InputJsonValue } from "../../types";
@@ -72,6 +80,18 @@ class UserCreateInput {
 
   @ApiProperty({
     required: false,
+    type: String,
+  })
+  @IsString()
+  @MaxLength(1000)
+  @IsOptional()
+  @Field(() => String, {
+    nullable: true,
+  })
+  serviceDescription?: string | null;
+
+  @ApiProperty({
+    required: false,
     enum: EnumUserTags,
     isArray: true,
   })
@@ -102,6 +122,19 @@ class UserCreateInput {
   @IsString()
   @Field(() => String)
   username!: string;
+
+  @ApiProperty({
+    required: false,
+    type: Number,
+  })
+  @IsInt()
+  @Min(-999999999)
+  @Max(999999999)
+  @IsOptional()
+  @Field(() => Number, {
+    nullable: true,
+  })
+  willingToPay?: number | null;
 }
 
 export { UserCreateInput as UserCreateInput };

@@ -6,7 +6,9 @@ export type UserUpdateInput = {
   lastName?: string | null;
   password?: string;
   roles?: InputJsonValue;
+  serviceDescription?: string | null;
   tags?: Array<"Option1">;
   typeField?: "Option1" | null;
   username?: string;
+  willingToPay?: number | null;
 };

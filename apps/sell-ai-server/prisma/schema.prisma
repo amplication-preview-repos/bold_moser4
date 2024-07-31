@@ -38,17 +38,19 @@ model Feedback {
 }
 
 model User {
-  createdAt DateTime           @default(now())
-  email     String?            @unique
-  firstName String?
-  id        String             @id @default(cuid())
-  lastName  String?
-  password  String
-  roles     Json
-  tags      EnumUserTags[]
-  typeField EnumUserTypeField?
-  updatedAt DateTime           @updatedAt
-  username  String             @unique
+  createdAt          DateTime           @default(now())
+  email              String?            @unique
+  firstName          String?
+  id                 String             @id @default(cuid())
+  lastName           String?
+  password           String
+  roles              Json
+  serviceDescription String?
+  tags               EnumUserTags[]
+  typeField          EnumUserTypeField?
+  updatedAt          DateTime           @updatedAt
+  username           String             @unique
+  willingToPay       Int?
 }
 
 model Category {

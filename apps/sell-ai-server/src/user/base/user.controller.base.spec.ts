@@ -24,8 +24,10 @@ const CREATE_INPUT = {
   id: "exampleId",
   lastName: "exampleLastName",
   password: "examplePassword",
+  serviceDescription: "exampleServiceDescription",
   updatedAt: new Date(),
   username: "exampleUsername",
+  willingToPay: 42,
 };
 const CREATE_RESULT = {
   createdAt: new Date(),
@@ -34,8 +36,10 @@ const CREATE_RESULT = {
   id: "exampleId",
   lastName: "exampleLastName",
   password: "examplePassword",
+  serviceDescription: "exampleServiceDescription",
   updatedAt: new Date(),
   username: "exampleUsername",
+  willingToPay: 42,
 };
 const FIND_MANY_RESULT = [
   {
@@ -45,8 +49,10 @@ const FIND_MANY_RESULT = [
     id: "exampleId",
     lastName: "exampleLastName",
     password: "examplePassword",
+    serviceDescription: "exampleServiceDescription",
     updatedAt: new Date(),
     username: "exampleUsername",
+    willingToPay: 42,
   },
 ];
 const FIND_ONE_RESULT = {
@@ -56,8 +62,10 @@ const FIND_ONE_RESULT = {
   id: "exampleId",
   lastName: "exampleLastName",
   password: "examplePassword",
+  serviceDescription: "exampleServiceDescription",
   updatedAt: new Date(),
   username: "exampleUsername",
+  willingToPay: 42,
 };
 
 const service = {

@@ -16,6 +16,7 @@ import { Type } from "class-transformer";
 import { IsOptional, IsEnum } from "class-validator";
 import { StringFilter } from "../../util/StringFilter";
 import { EnumUserTypeField } from "./EnumUserTypeField";
+import { IntNullableFilter } from "../../util/IntNullableFilter";
 
 @InputType()
 class UserWhereInput {
@@ -65,6 +66,17 @@ class UserWhereInput {
 
   @ApiProperty({
     required: false,
+    type: StringNullableFilter,
+  })
+  @Type(() => StringNullableFilter)
+  @IsOptional()
+  @Field(() => StringNullableFilter, {
+    nullable: true,
+  })
+  serviceDescription?: StringNullableFilter;
+
+  @ApiProperty({
+    required: false,
     enum: EnumUserTypeField,
   })
   @IsEnum(EnumUserTypeField)
@@ -84,6 +96,17 @@ class UserWhereInput {
     nullable: true,
   })
   username?: StringFilter;
+
+  @ApiProperty({
+    required: false,
+    type: IntNullableFilter,
+  })
+  @Type(() => IntNullableFilter)
+  @IsOptional()
+  @Field(() => IntNullableFilter, {
+    nullable: true,
+  })
+  willingToPay?: IntNullableFilter;
 }
 
 export { UserWhereInput as UserWhereInput };

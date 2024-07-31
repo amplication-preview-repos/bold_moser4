@@ -37,10 +37,12 @@ export class UserControllerBase {
         id: true,
         lastName: true,
         roles: true,
+        serviceDescription: true,
         tags: true,
         typeField: true,
         updatedAt: true,
         username: true,
+        willingToPay: true,
       },
     });
   }
@@ -59,10 +61,12 @@ export class UserControllerBase {
         id: true,
         lastName: true,
         roles: true,
+        serviceDescription: true,
         tags: true,
         typeField: true,
         updatedAt: true,
         username: true,
+        willingToPay: true,
       },
     });
   }
@@ -82,10 +86,12 @@ export class UserControllerBase {
         id: true,
         lastName: true,
         roles: true,
+        serviceDescription: true,
         tags: true,
         typeField: true,
         updatedAt: true,
         username: true,
+        willingToPay: true,
       },
     });
     if (result === null) {
@@ -114,10 +120,12 @@ export class UserControllerBase {
           id: true,
           lastName: true,
           roles: true,
+          serviceDescription: true,
           tags: true,
           typeField: true,
           updatedAt: true,
           username: true,
+          willingToPay: true,
         },
       });
     } catch (error) {
@@ -146,10 +154,12 @@ export class UserControllerBase {
           id: true,
           lastName: true,
           roles: true,
+          serviceDescription: true,
           tags: true,
           typeField: true,
           updatedAt: true,
           username: true,
+          willingToPay: true,
         },
       });
     } catch (error) {

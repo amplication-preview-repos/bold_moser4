@@ -8,8 +8,10 @@ export type UserOrderByInput = {
   lastName?: SortOrder;
   password?: SortOrder;
   roles?: SortOrder;
+  serviceDescription?: SortOrder;
   tags?: SortOrder;
   typeField?: SortOrder;
   updatedAt?: SortOrder;
   username?: SortOrder;
+  willingToPay?: SortOrder;
 };

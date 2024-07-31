@@ -8,6 +8,7 @@ import {
   PasswordInput,
   SelectArrayInput,
   SelectInput,
+  NumberInput,
 } from "react-admin";
 
 import { ROLES_OPTIONS } from "../user/RolesOptions";
@@ -26,6 +27,11 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
           optionText="label"
           optionValue="value"
         />
+        <TextInput
+          label="serviceDescription"
+          multiline
+          source="serviceDescription"
+        />
         <SelectArrayInput
           label="tags"
           source="tags"
@@ -42,6 +48,7 @@ export const UserEdit = (props: EditProps): React.ReactElement => {
           optionValue="value"
         />
         <TextInput label="Username" source="username" />
+        <NumberInput step={1} label="willingToPay" source="willingToPay" />
       </SimpleForm>
     </Edit>
   );
